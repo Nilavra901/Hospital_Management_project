@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SevaCare — Hospital Demo (Indian Theme)</title>
+  <style>
+    :root{--saffron:#ff9933;--green:#138000;--muted:#444;font-family:Arial,Helvetica,sans-serif}
+    body{margin:0;background:#fffef8;color:var(--muted);}
+    header{background:linear-gradient(90deg,var(--saffron),#fff);padding:18px 12px;border-bottom:4px solid var(--green)}
+    .container{max-width:1000px;margin:0 auto;padding:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand h1{margin:0;font-size:20px}
+    .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);margin-top:12px}
+    button{background:var(--green);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+    pre{white-space:pre-wrap;background:#f8f8f8;padding:12px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container brand">
+      <div style="width:56px;height:56px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:bold;color:var(--saffron)">SC</div>
+      <div>
+        <h1>SevaCare Hospital</h1>
+        <small>Compassion • Care • Community</small>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+    <div class="card">
+      <h3>Doctors (from API)</h3>
+      <button onclick="loadDoctors()">Load Doctors</button>
+      <pre id="out">Press "Load Doctors" to fetch from backend (http://127.0.0.1:8000)</pre>
+    </div>
+  </main>
+  <script>
+    async function loadDoctors(){
+      try{
+        const res = await fetch('http://127.0.0.1:8000/doctors');
+        const data = await res.json();
+        document.getElementById('out').textContent = JSON.stringify(data, null, 2);
+      }catch(err){
+        document.getElementById('out').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
